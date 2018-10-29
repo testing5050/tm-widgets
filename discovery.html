@@ -24,7 +24,6 @@
     const widget = document.querySelector('div[w-type]');
     const apiKeyInput = document.getElementById('apikey');
 
-    const widgetInstance =
     applyButton.addEventListener('click', function (e) {
       widget.setAttribute('w-tmapikey', apiKeyInput.value);
       window.widget.update();
