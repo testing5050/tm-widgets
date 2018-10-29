@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Widgets testing</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+        }
+
+        ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        li {
+            margin-right: 15px;
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <ul>
+        <li><a href="/discovery.html">Discovery widget</a></li>
+        <li><a href="/countdown.html">Countdown widget</a></li>
+    </ul>
+</header>
+<h1>Countdown widget testing</h1>
+
+<section style="margin-bottom: 50px">
+    <table style="margin-bottom: 20px">
+        <tr>
+            <td>API key</td>
+            <td><input style="width: 100%" id="apikey" type="text" value="5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG"></td>
+        </tr>
+        <tr>
+            <td>Event ID</td>
+            <td><input style="width: 100%" id="eventId" type="text" value="Z7r9jZ1Ae8oOd"></td>
+        </tr>
+    </table>
+
+    <button id="update">Update</button>
+
+</section>
+
+<div class="widget-container">
+    <div w-type="countdown" w-tmapikey="5QGCEXAsJowiCI4n1uAwMlCGAcSNAEmG" w-id="Z7r9jZ1Ae8oOd" w-theme="simple_countdown" w-width="350" w-height="600" w-borderradius="4" w-layout="vertical" w-proportion="custom"></div>
+</div>
+
+<script src="widgets/countdown.js"></script>
+<script>
+    window.widget = window.widgetsLib.widgetsCountdown[0];
+</script>
+<script>
+    const updateButton = document.getElementById('update');
+    const widget = document.querySelector('div[w-type]');
+
+    const apiKeyInput = document.getElementById('apikey');
+    const eventIdInput = document.getElementById('eventId');
+
+    updateButton.addEventListener('click', function (e) {
+      widget.setAttribute('w-tmapikey', apiKeyInput.value);
+      widget.setAttribute('w-id', eventIdInput.value);
+      window.widget.update();
+    })
+</script>
+</body>
+</html>
