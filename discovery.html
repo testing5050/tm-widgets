@@ -3,10 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Widgets testing</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 40px;
+        }
+
+        ul {
+            display: flex;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .navigation li {
+            margin-right: 15px;
+        }
+
+        input[type=text] {
+            min-width: 300px;
+        }
+
+    </style>
 </head>
 <body>
 <header>
-    <ul>
+    <ul class="navigation">
         <li><a href="/discovery.html">Discovery widget</a></li>
         <li><a href="/countdown.html">Countdown widget</a></li>
     </ul>
