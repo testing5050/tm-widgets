@@ -976,6 +976,8 @@ var MonthScheduler = function () {
               monthEvents = [];
               var monthEventsConcat = [];
               var _l2 = parseInt(events.page.totalPages) - 1;
+              var maxRequestsNumber = 3;
+              var numberOfRequests = Math.min(_l2, maxRequestsNumber);
 
               var _loop = function _loop() {
                 var attrs = widget.eventReqAttrs;
@@ -988,10 +990,14 @@ var MonthScheduler = function () {
                 var thisSchedulerRoot = widget.monthSchedulerRoot.parentNode.parentNode.parentNode;
                 if (thisSchedulerRoot.getAttribute('w-postalcodeapi') != null) url += '&postalCode=' + thisSchedulerRoot.getAttribute('w-postalcodeapi');
                 url += '&sort=date,asc';
-                prm.push(widget.getJsonAsync(url));
+                prm.push(new Promise(function (resolve) {
+                  setTimeout(function () {
+                    resolve(widget.getJsonAsync(url));
+                  }, i * 500);
+                }));
               };
 
-              for (i = 0; i <= _l2; i++) {
+              for (i = 0; i <= numberOfRequests; i++) {
                 _loop();
               }
 
@@ -1240,6 +1246,7 @@ var MonthScheduler = function () {
                 }
               }, function (reason) {
                 console.log(reason);
+                setTimeout(widget.startMonth.bind(widget), 1000);
               });
             }
           } else if (this.status == 400) {
@@ -3705,6 +3712,8 @@ var WeekScheduler = function () {
               weekEvents = [];
               var weekEventsConcat = [];
               var _l2 = events.page.totalPages - 1;
+              var maxRequestsNumber = 3;
+              var numberOfRequests = Math.min(_l2, maxRequestsNumber);
 
               var _loop = function _loop(_i4) {
                 var attrs = widget.eventReqAttrs;
@@ -3718,9 +3727,14 @@ var WeekScheduler = function () {
                 if (thisSchedulerRoot.getAttribute('w-postalcodeapi') != null) url += '&postalCode=' + thisSchedulerRoot.getAttribute('w-postalcodeapi');
                 url += '&sort=date,asc';
                 prm.push(widget.getJsonAsync(url));
+                prm.push(new Promise(function (resolve) {
+                  setTimeout(function () {
+                    resolve(widget.getJsonAsync(url));
+                  }, _i4 * 500);
+                }));
               };
 
-              for (var _i4 = 0; _i4 <= _l2; _i4++) {
+              for (var _i4 = 0; _i4 <= numberOfRequests; _i4++) {
                 _loop(_i4);
               }
               Promise.all(prm).then(function (value) {
@@ -3951,6 +3965,7 @@ var WeekScheduler = function () {
                 }
               }, function (reason) {
                 console.log(reason);
+                setTimeout(widget.startMonth.bind(widget), 1000);
               });
             }
           } else if (this.status == 400) {
@@ -4488,7 +4503,11 @@ var YearScheduler = function () {
 				var thisSchedulerRoot = _this3.yearSchedulerRoot.parentNode.parentNode.parentNode;
 				if (thisSchedulerRoot.getAttribute('w-postalcodeapi') != null) url += '&postalCode=' + thisSchedulerRoot.getAttribute('w-postalcodeapi');
 				url += '&sort=date,asc';
-				prm.push(_this3.getJsonAsync(url));
+				prm.push(new Promise(function (resolve) {
+					setTimeout(function () {
+						resolve(_this3.getJsonAsync(url));
+					}, 500 * i);
+				}));
 			};
 
 			for (var i = 1; i <= 12; i++) {
@@ -4551,6 +4570,7 @@ var YearScheduler = function () {
 				}
 			}, function (reason) {
 				console.log(reason);
+				setTimeout(_this3.startYear.bind(_this3), 1000);
 			});
 		}
 	}, {
